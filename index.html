@@ -106,6 +106,16 @@
     .success { margin:0; color:#647660; font-size:13px; }
     footer { padding:25px; color:#77716a; text-align:center; font-size:10px; letter-spacing:.16em; text-transform:uppercase; }
 
+    .light-motes { position:absolute; z-index:0; inset:0; overflow:hidden; pointer-events:none; }
+    .light-motes::before { position:absolute; top:-18%; left:-32%; width:52%; height:136%; content:""; background:linear-gradient(105deg,transparent 28%,rgba(255,255,255,.38) 50%,transparent 72%); filter:blur(12px); animation:paper-sheen 11s ease-in-out infinite; }
+    .light-motes i { --dx:30px; --dy:-38px; position:absolute; width:clamp(9px,1vw,15px); aspect-ratio:1; border:1px solid rgba(174,145,115,.36); border-radius:50%; background:rgba(255,255,255,.48); box-shadow:0 0 0 7px rgba(185,159,131,.045),0 8px 24px rgba(118,96,74,.14); opacity:.42; animation:mote-float 7.5s ease-in-out infinite alternate; will-change:transform,opacity; }
+    .light-motes i:nth-child(1) { top:17%; left:8%; animation-delay:-1s; }
+    .light-motes i:nth-child(2) { --dx:-38px; --dy:31px; top:28%; right:12%; width:clamp(12px,1.35vw,20px); animation-duration:9.2s; animation-delay:-4s; }
+    .light-motes i:nth-child(3) { --dx:48px; --dy:-24px; bottom:17%; left:18%; width:clamp(7px,.8vw,12px); animation-duration:6.7s; animation-delay:-2.6s; }
+    .light-motes i:nth-child(4) { --dx:-24px; --dy:-46px; right:24%; bottom:13%; animation-duration:8.4s; animation-delay:-5.2s; }
+    .light-motes i:nth-child(5) { --dx:32px; --dy:27px; top:52%; left:48%; width:clamp(6px,.65vw,10px); animation-duration:7.1s; animation-delay:-3.3s; }
+    .invitation-inner,.details-heading,.cards,.rsvp { position:relative; z-index:1; }
+
     .hero-title,.hero-quote,.hero-date { animation:hero-copy-in .9s cubic-bezier(.2,.7,.2,1) both; }
     .hero-quote { animation-delay:.14s; }
     .hero-date { animation-delay:.26s; }
@@ -127,6 +137,8 @@
     @keyframes ambient-drift-reverse { from { transform:translate3d(0,0,0) scale(1.08); } to { transform:translate3d(-80px,-45px,0) scale(.96); } }
     @keyframes dark-glow { from { transform:translate3d(0,0,0); opacity:.55; } to { transform:translate3d(-120px,90px,0); opacity:1; } }
     @keyframes monogram-pulse { 0%,100% { transform:scale(1); opacity:.72; } 50% { transform:scale(1.09); opacity:1; } }
+    @keyframes paper-sheen { 0%,8% { transform:translateX(0); opacity:0; } 28%,66% { opacity:.72; } 92%,100% { transform:translateX(255%); opacity:0; } }
+    @keyframes mote-float { 0% { transform:translate3d(0,0,0) scale(.78); opacity:.25; } 48% { opacity:.68; } 100% { transform:translate3d(var(--dx),var(--dy),0) scale(1.18); opacity:.4; } }
 
     @media (hover:hover) and (pointer:fine) {
       .card:hover { z-index:2; transform:translateY(-9px); background:rgba(255,255,255,.2); }
@@ -158,6 +170,13 @@
       .photo-story::before { background:linear-gradient(0deg,rgba(0,0,0,.72),rgba(0,0,0,.12) 70%); }
       .photo-story::after { opacity:.72; }
       .photo-story h2 { font-size:80px; }
+      .light-motes::before { left:-78%; width:86%; animation-duration:8.5s; }
+      .light-motes i { width:11px; border-color:rgba(174,145,115,.4); box-shadow:0 0 0 6px rgba(185,159,131,.055),0 7px 19px rgba(118,96,74,.15); }
+      .light-motes i:nth-child(1) { top:12%; left:7%; }
+      .light-motes i:nth-child(2) { top:34%; right:9%; width:15px; }
+      .light-motes i:nth-child(3) { bottom:14%; left:11%; width:9px; }
+      .light-motes i:nth-child(4) { right:16%; bottom:22%; }
+      .light-motes i:nth-child(5) { top:56%; left:42%; width:8px; }
       .details-heading { display:block; margin-bottom:38px; }
       .details-heading p { margin-top:28px; }
       .details h2 { font-size:75px; }
@@ -203,6 +222,7 @@
     </section>
 
     <section class="section invitation" id="invite">
+      <div class="light-motes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
       <div class="invitation-inner reveal">
         <p class="kicker">09 сентября 2026</p>
         <h1>Дорогие<br>гости!</h1>
@@ -225,6 +245,7 @@
     <section class="photo-story"><div class="photo-story-content reveal"><p class="kicker">Наша история</p><h2>Вместе<br>навсегда</h2><p>Самые любимые моменты становятся ещё ценнее, когда ими можно поделиться.</p></div></section>
 
     <section class="section details">
+      <div class="light-motes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
       <div class="details-heading reveal"><h2>Детали</h2><p>Чтобы этот день прошёл легко и красиво для каждого из нас.</p></div>
       <div class="cards reveal">
         <article class="card"><p class="card-number">01</p><h3>Место</h3><p>Рады видеть вас по адресу: г. Курск, ул. Радищева, 66А.</p><a href="https://yandex.ru/maps/?text=Курск%20Радищева%2066А" target="_blank" rel="noopener">Открыть карту ↗</a></article>
@@ -235,7 +256,7 @@
 
     <section class="section countdown-section"><div class="reveal"><p class="kicker">09.09.2026</p><h2>До свадьбы<br>осталось</h2><div class="countdown" id="countdown" aria-label="Обратный отсчёт до свадьбы"></div></div></section>
 
-    <section class="section rsvp-section"><div class="rsvp reveal" id="rsvp"><p class="kicker">Будем рады вашему ответу</p><h2>Просьба</h2><p class="rsvp-intro">Пожалуйста, подтвердите своё присутствие, чтобы мы могли всё подготовить.</p>
+    <section class="section rsvp-section"><div class="light-motes" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><div class="rsvp reveal" id="rsvp"><p class="kicker">Будем рады вашему ответу</p><h2>Просьба</h2><p class="rsvp-intro">Пожалуйста, подтвердите своё присутствие, чтобы мы могли всё подготовить.</p>
       <form id="form" action="https://formsubmit.co/arinarinaarkatova@gmail.com" method="POST">
         <input type="hidden" name="_subject" value="RSVP — свадьба Арины и Максима">
         <input type="hidden" name="_template" value="table">
