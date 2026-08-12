@@ -29,7 +29,7 @@
     .hero-date::before { width:36px; height:1px; content:""; background:var(--ink); }
     .hero-photo { position:relative; overflow:hidden; height:min(78vh,735px); min-height:540px; }
     .hero-photo::after { position:absolute; inset:0; content:""; background:linear-gradient(125deg,rgba(255,255,255,.16),rgba(255,255,255,.035) 36%,transparent 58%),radial-gradient(circle at 78% 18%,rgba(255,255,255,.13),transparent 34%),linear-gradient(135deg,rgba(0,0,0,.11),transparent 46%); pointer-events:none; }
-    .hero-photo img { width:100%; height:100%; object-fit:cover; object-position:53% 42%; filter:grayscale(100%) contrast(1.05); transform:scale(1.025); animation:hero-breathe 16s ease-in-out infinite alternate; }
+    .hero-photo img { width:100%; height:100%; object-fit:cover; object-position:53% 42%; filter:grayscale(100%) contrast(1.05); transform:scale(1.025); }
     .scroll { position:absolute; bottom:28px; left:50%; color:#66615c; transform:translateX(-50%); text-decoration:none; font-size:10px; letter-spacing:.16em; text-transform:uppercase; white-space:nowrap; }
     .scroll::after { display:block; width:1px; height:32px; margin:10px auto 0; content:""; background:#77716b; animation:scroll-line 1.6s ease-in-out infinite; }
 
@@ -59,7 +59,7 @@
 
     .photo-story { position:relative; min-height:720px; display:grid; align-items:end; padding:clamp(45px,7vw,100px) max(24px, calc((100vw - 1180px)/2)); overflow:hidden; isolation:isolate; color:#fff; background:#151310 url('public/photos/arina-maxim-temple.jpg') center 64% / cover no-repeat; }
     .photo-story::before { position:absolute; inset:0; content:""; background:linear-gradient(90deg,rgba(0,0,0,.68),rgba(0,0,0,.12) 70%),linear-gradient(0deg,rgba(0,0,0,.32),transparent 52%); }
-    .photo-story::after { position:absolute; z-index:1; inset:0; content:""; background:linear-gradient(122deg,rgba(255,247,232,.11),rgba(255,247,232,.025) 37%,transparent 59%),radial-gradient(circle at 79% 18%,rgba(255,236,205,.12),transparent 34%); pointer-events:none; }
+    .photo-story::after { position:absolute; z-index:1; inset:-15% -45%; content:""; background:linear-gradient(105deg,transparent 38%,rgba(255,246,228,.15) 48%,rgba(255,255,255,.2) 51%,transparent 61%); transform:translateX(-48%); animation:photo-light 13s ease-in-out infinite; will-change:transform,opacity; pointer-events:none; }
     .photo-story-content { position:relative; z-index:2; max-width:410px; }
     .photo-story h2 { margin:0; font-size:clamp(68px,8vw,120px); line-height:.73; letter-spacing:-.065em; }
     .photo-story p:last-child { max-width:290px; margin:27px 0 0; font:italic 27px/1.15 "Cormorant Garamond", Georgia, serif; }
@@ -80,6 +80,7 @@
 
     .countdown-section { min-height:620px; display:grid; position:relative; place-items:center; overflow:hidden; isolation:isolate; color:#fff; text-align:center; background:linear-gradient(rgba(16,17,15,.58),rgba(16,17,15,.7)),url('public/photos/arina-maxim-garden.jpg') center 44% / cover; }
     .countdown-section::before { position:absolute; z-index:0; inset:0; content:""; background:linear-gradient(125deg,rgba(255,247,232,.095),rgba(255,247,232,.018) 38%,transparent 59%),radial-gradient(circle at 76% 20%,rgba(255,229,196,.13),transparent 35%); pointer-events:none; }
+    .countdown-section::after { position:absolute; z-index:0; inset:-15% -45%; content:""; background:linear-gradient(105deg,transparent 38%,rgba(255,246,228,.13) 48%,rgba(255,255,255,.18) 51%,transparent 61%); transform:translateX(-48%); animation:photo-light 13s ease-in-out -6.5s infinite; will-change:transform,opacity; pointer-events:none; }
     .countdown-section > div { position:relative; z-index:1; }
     .countdown-section h2 { margin:0; font-size:clamp(70px,8vw,118px); line-height:.75; letter-spacing:-.06em; }
     .countdown { display:flex; justify-content:center; margin-top:53px; }
@@ -119,7 +120,6 @@
     .hero-title,.hero-quote,.hero-date { animation:hero-copy-in .9s cubic-bezier(.2,.7,.2,1) both; }
     .hero-quote { animation-delay:.14s; }
     .hero-date { animation-delay:.26s; }
-    .hero-photo { animation:hero-photo-in 1.05s cubic-bezier(.2,.7,.2,1) .08s both; }
     .reveal { opacity:0; transform:translateY(28px); transition:opacity .8s ease,transform .8s cubic-bezier(.2,.65,.2,1); }
     .reveal.is-visible { opacity:1; transform:none; }
     .program.is-visible .program-mark,.program.is-visible .program-copy { animation:item-rise .75s cubic-bezier(.2,.7,.2,1) both; }
@@ -128,10 +128,8 @@
     .cards.is-visible .card { animation:item-rise .8s cubic-bezier(.2,.7,.2,1) both; }
     .cards.is-visible .card:nth-child(2) { animation-delay:.12s; }
     .cards.is-visible .card:nth-child(3) { animation-delay:.24s; }
-    @keyframes hero-breathe { from { transform:scale(1.025); } to { transform:scale(1.075); } }
     @keyframes scroll-line { 0%,100% { transform:scaleY(.45); transform-origin:top; opacity:.4; } 50% { transform:scaleY(1); transform-origin:top; opacity:1; } }
     @keyframes hero-copy-in { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:none; } }
-    @keyframes hero-photo-in { from { opacity:0; transform:translateY(18px) scale(.985); } to { opacity:1; transform:none; } }
     @keyframes item-rise { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:none; } }
     @keyframes ambient-drift { from { transform:translate3d(0,0,0) scale(1); } to { transform:translate3d(90px,55px,0) scale(1.12); } }
     @keyframes ambient-drift-reverse { from { transform:translate3d(0,0,0) scale(1.08); } to { transform:translate3d(-80px,-45px,0) scale(.96); } }
@@ -139,6 +137,7 @@
     @keyframes monogram-pulse { 0%,100% { transform:scale(1); opacity:.72; } 50% { transform:scale(1.09); opacity:1; } }
     @keyframes paper-sheen { 0%,8% { transform:translateX(0); opacity:0; } 28%,66% { opacity:.72; } 92%,100% { transform:translateX(255%); opacity:0; } }
     @keyframes mote-float { 0% { transform:translate3d(0,0,0) scale(.78); opacity:.25; } 48% { opacity:.68; } 100% { transform:translate3d(var(--dx),var(--dy),0) scale(1.18); opacity:.4; } }
+    @keyframes photo-light { 0%,18% { transform:translateX(-48%); opacity:0; } 42%,58% { opacity:1; } 82%,100% { transform:translateX(48%); opacity:0; } }
 
     @media (hover:hover) and (pointer:fine) {
       .card:hover { z-index:2; transform:translateY(-9px); background:rgba(255,255,255,.2); }
@@ -168,7 +167,7 @@
       .program { grid-template-columns:50px 1fr; padding-left:20px; }
       .photo-story { min-height:600px; padding:46px 25px; background-position:center 68%; }
       .photo-story::before { background:linear-gradient(0deg,rgba(0,0,0,.72),rgba(0,0,0,.12) 70%); }
-      .photo-story::after { opacity:.72; }
+      .photo-story::after,.countdown-section::after { inset:-12% -70%; background:linear-gradient(105deg,transparent 39%,rgba(255,246,228,.17) 48%,rgba(255,255,255,.22) 51%,transparent 60%); animation-duration:10.5s; }
       .photo-story h2 { font-size:80px; }
       .light-motes::before { left:-78%; width:86%; animation-duration:8.5s; }
       .light-motes i { width:11px; border-color:rgba(174,145,115,.4); box-shadow:0 0 0 6px rgba(185,159,131,.055),0 7px 19px rgba(118,96,74,.15); }
