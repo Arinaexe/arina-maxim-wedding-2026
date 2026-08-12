@@ -76,7 +76,7 @@ def main():
     tracked(draw, 1935, "ОТКРОЙТЕ НАШЕ ПРИГЛАШЕНИЕ", font(SANS, 19), MUTED, 6)
     centered(draw, 2010, "А  ∞  М", font(SERIF, 62), CHAMPAGNE)
 
-    canvas.convert("RGB").save(OUTPUT, quality=96)
+    canvas.convert("RGB").save(OUTPUT, dpi=(300, 300), optimize=True)
     print(OUTPUT)
 
 
