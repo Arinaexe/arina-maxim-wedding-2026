@@ -205,7 +205,7 @@
         <input type="hidden" name="_subject" value="RSVP — свадьба Арины и Максима">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://arinaexe.github.io/arina-maxim-wedding-2026/?thanks=1#rsvp">
+        <input type="hidden" name="_next" value="https://arinaexe.github.io/arina-maxim-wedding-2026/?thanks=1">
         <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
         <label>Ваше имя и фамилия<input required name="Гость" placeholder="Например, Сергей Иванов"></label>
         <fieldset><legend>Планируете ли вы присутствовать?</legend><label class="choice"><input type="radio" name="attendance" value="Да, с удовольствием!" required>Да, с удовольствием!</label><label class="choice"><input type="radio" name="attendance" value="К сожалению, не смогу">К сожалению, не смогу</label></fieldset>
@@ -226,7 +226,9 @@
     updateCountdown(); setInterval(updateCountdown, 1000);
     const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } }), { threshold:.15 });
     document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
-    if (new URLSearchParams(window.location.search).get('thanks') === '1') document.querySelector('#success').hidden = false;
+    const parameters = new URLSearchParams(window.location.search);
+    if (window.location.hash === '#rsvp' && parameters.get('thanks') !== '1') history.replaceState(null, '', window.location.pathname + window.location.search);
+    if (parameters.get('thanks') === '1') document.querySelector('#success').hidden = false;
   </script>
 </body>
 </html>
