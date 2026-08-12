@@ -33,17 +33,21 @@
     .scroll { position:absolute; bottom:28px; left:50%; color:#66615c; transform:translateX(-50%); text-decoration:none; font-size:10px; letter-spacing:.16em; text-transform:uppercase; white-space:nowrap; }
     .scroll::after { display:block; width:1px; height:32px; margin:10px auto 0; content:""; background:#77716b; animation:scroll-line 1.6s ease-in-out infinite; }
 
-    .invitation { display:grid; grid-template-columns:1fr minmax(280px,550px) 1fr; text-align:center; }
-    .invitation-inner { grid-column:2; }
+    .invitation { display:grid; grid-template-columns:1fr minmax(280px,550px) 1fr; overflow:hidden; isolation:isolate; text-align:center; }
+    .invitation::before { position:absolute; z-index:-1; top:-190px; left:-210px; width:520px; height:520px; border-radius:50%; content:""; background:radial-gradient(circle,rgba(185,159,131,.18),rgba(185,159,131,0) 68%); animation:ambient-drift 17s ease-in-out infinite alternate; pointer-events:none; }
+    .invitation::after { position:absolute; z-index:-1; right:-230px; bottom:-230px; width:560px; height:560px; border-radius:50%; content:""; background:radial-gradient(circle,rgba(174,181,168,.17),rgba(174,181,168,0) 70%); animation:ambient-drift-reverse 21s ease-in-out infinite alternate; pointer-events:none; }
+    .invitation-inner { position:relative; z-index:1; grid-column:2; }
     .invitation h1 { margin:0 0 42px; font-size:clamp(62px,7.7vw,112px); line-height:.77; letter-spacing:-.06em; text-transform:uppercase; }
     .lead { max-width:470px; margin:0 auto 48px; font:italic clamp(24px,2.8vw,36px)/1.25 "Cormorant Garamond", Georgia, serif; }
     .body-copy { max-width:420px; margin:auto; color:#5f5a54; }
     .body-copy p { margin:0 0 21px; }
     .monogram { display:flex; align-items:center; justify-content:center; gap:28px; margin-top:62px; font:400 clamp(75px,7vw,106px)/.75 "Cormorant Garamond", Georgia, serif; }
-    .monogram b { color:#b99f83; font-size:.72em; font-weight:400; }
+    .monogram b { color:#b99f83; font-size:.72em; font-weight:400; animation:monogram-pulse 4.8s ease-in-out infinite; }
 
-    .schedule { display:grid; grid-template-columns:minmax(300px,.9fr) 1.1fr; gap:clamp(54px,10vw,150px); align-items:center; color:#f6f2ec; background:#1d1e1b; }
+    .schedule { display:grid; grid-template-columns:minmax(300px,.9fr) 1.1fr; gap:clamp(54px,10vw,150px); align-items:center; overflow:hidden; isolation:isolate; color:#f6f2ec; background:#1d1e1b; }
     .schedule::before { position:absolute; top:0; right:6%; width:1px; height:100%; content:""; background:rgba(255,255,255,.1); }
+    .schedule::after { position:absolute; z-index:-1; top:-220px; right:-170px; width:540px; height:540px; border-radius:50%; content:""; background:radial-gradient(circle,rgba(200,170,139,.15),rgba(200,170,139,0) 68%); animation:dark-glow 15s ease-in-out infinite alternate; pointer-events:none; }
+    .schedule > * { position:relative; z-index:1; }
     .schedule h2 { margin:0; font-size:clamp(67px,7.5vw,110px); line-height:.76; letter-spacing:-.06em; text-transform:uppercase; }
     .schedule .place { margin:30px 0 0; color:#d5cec4; font:italic 28px/1.2 "Cormorant Garamond", Georgia, serif; }
     .program { display:grid; grid-template-columns:70px 1fr; border-left:1px solid rgba(255,255,255,.38); padding-left:32px; }
@@ -53,18 +57,20 @@
     .program-time { display:block; font:400 37px/1 "Cormorant Garamond", Georgia, serif; }
     .program-label { display:block; margin-top:7px; color:#cfcac2; font:italic 23px/1.1 "Cormorant Garamond", Georgia, serif; }
 
-    .photo-story { min-height:720px; display:grid; align-items:end; padding:clamp(45px,7vw,100px) max(24px, calc((100vw - 1180px)/2)); overflow:hidden; color:#fff; background:#151310 url('public/photos/arina-maxim-temple.jpg') center 64% / cover no-repeat; }
+    .photo-story { position:relative; min-height:720px; display:grid; align-items:end; padding:clamp(45px,7vw,100px) max(24px, calc((100vw - 1180px)/2)); overflow:hidden; isolation:isolate; color:#fff; background:#151310 url('public/photos/arina-maxim-temple.jpg') center 64% / cover no-repeat; }
     .photo-story::before { position:absolute; inset:0; content:""; background:linear-gradient(90deg,rgba(0,0,0,.68),rgba(0,0,0,.12) 70%),linear-gradient(0deg,rgba(0,0,0,.32),transparent 52%); }
-    .photo-story-content { position:relative; max-width:410px; }
+    .photo-story::after { position:absolute; z-index:1; inset:-15% -45%; content:""; background:linear-gradient(105deg,transparent 38%,rgba(255,246,228,.13) 49%,transparent 60%); transform:translateX(-48%); animation:photo-light 13s ease-in-out infinite; pointer-events:none; }
+    .photo-story-content { position:relative; z-index:2; max-width:410px; }
     .photo-story h2 { margin:0; font-size:clamp(68px,8vw,120px); line-height:.73; letter-spacing:-.065em; }
     .photo-story p:last-child { max-width:290px; margin:27px 0 0; font:italic 27px/1.15 "Cormorant Garamond", Georgia, serif; }
 
-    .details { background:#ebe8e2; }
-    .details-heading { display:flex; align-items:end; justify-content:space-between; gap:30px; margin-bottom:54px; }
+    .details { overflow:hidden; isolation:isolate; background:#ebe8e2; }
+    .details::before { position:absolute; z-index:-1; top:-250px; right:-220px; width:610px; height:610px; border-radius:50%; content:""; background:radial-gradient(circle,rgba(255,255,255,.58),rgba(255,255,255,0) 70%); animation:ambient-drift-reverse 20s ease-in-out infinite alternate; pointer-events:none; }
+    .details-heading { position:relative; z-index:1; display:flex; align-items:end; justify-content:space-between; gap:30px; margin-bottom:54px; }
     .details h2 { margin:0; font-size:clamp(72px,8.6vw,118px); line-height:.72; letter-spacing:-.065em; text-transform:uppercase; }
     .details-heading p { max-width:220px; margin:0 0 3px; color:#665f58; }
-    .cards { display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); }
-    .card { min-height:303px; padding:34px clamp(22px,3vw,48px) 34px 0; border-right:1px solid var(--line); }
+    .cards { position:relative; z-index:1; display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid var(--line); }
+    .card { min-height:303px; padding:34px clamp(22px,3vw,48px) 34px 0; border-right:1px solid var(--line); transition:transform .45s cubic-bezier(.2,.7,.2,1),background-color .45s ease; }
     .card:not(:first-child) { padding-left:clamp(22px,3vw,48px); }
     .card:last-child { border-right:0; }
     .card-number { margin:0 0 41px; color:#ae8d6c; font:italic 23px "Cormorant Garamond", Georgia, serif; }
@@ -72,7 +78,9 @@
     .card p:not(.card-number) { max-width:260px; margin:0; color:#6a645e; font-size:13px; }
     .card a { display:inline-block; margin-top:18px; font-size:12px; text-underline-offset:4px; }
 
-    .countdown-section { min-height:620px; display:grid; place-items:center; color:#fff; text-align:center; background:linear-gradient(rgba(16,17,15,.58),rgba(16,17,15,.7)),url('public/photos/arina-maxim-garden.jpg') center 44% / cover; }
+    .countdown-section { min-height:620px; display:grid; position:relative; place-items:center; overflow:hidden; isolation:isolate; color:#fff; text-align:center; background:linear-gradient(rgba(16,17,15,.58),rgba(16,17,15,.7)),url('public/photos/arina-maxim-garden.jpg') center 44% / cover; }
+    .countdown-section::before { position:absolute; z-index:-1; inset:0; content:""; background:radial-gradient(circle at 75% 24%,rgba(255,229,196,.19),transparent 36%); animation:countdown-glow 9s ease-in-out infinite alternate; pointer-events:none; }
+    .countdown-section > div { position:relative; z-index:1; }
     .countdown-section h2 { margin:0; font-size:clamp(70px,8vw,118px); line-height:.75; letter-spacing:-.06em; }
     .countdown { display:flex; justify-content:center; margin-top:53px; }
     .countdown-part { position:relative; min-width:92px; padding:0 16px; }
@@ -80,7 +88,9 @@
     .countdown-part strong { display:block; font:400 58px/.8 "Cormorant Garamond", Georgia, serif; }
     .countdown-part span { display:block; margin-top:13px; font-size:9px; letter-spacing:.12em; text-transform:uppercase; }
 
-    .rsvp { max-width:860px; margin:auto; text-align:center; }
+    .rsvp-section { overflow:hidden; isolation:isolate; }
+    .rsvp-section::before { position:absolute; z-index:-1; left:-220px; bottom:-260px; width:590px; height:590px; border-radius:50%; content:""; background:radial-gradient(circle,rgba(185,159,131,.16),rgba(185,159,131,0) 70%); animation:ambient-drift 19s ease-in-out infinite alternate; pointer-events:none; }
+    .rsvp { position:relative; z-index:1; max-width:860px; margin:auto; text-align:center; }
     .rsvp h2 { margin:0 0 17px; font-size:clamp(71px,8vw,116px); line-height:.75; letter-spacing:-.06em; text-transform:uppercase; }
     .rsvp-intro { max-width:490px; margin:0 auto 54px; color:#645e57; font:italic 27px/1.2 "Cormorant Garamond", Georgia, serif; }
     form { display:grid; gap:28px; text-align:left; }
@@ -95,10 +105,35 @@
     .success { margin:0; color:#647660; font-size:13px; }
     footer { padding:25px; color:#77716a; text-align:center; font-size:10px; letter-spacing:.16em; text-transform:uppercase; }
 
+    .hero-title,.hero-quote,.hero-date { animation:hero-copy-in .9s cubic-bezier(.2,.7,.2,1) both; }
+    .hero-quote { animation-delay:.14s; }
+    .hero-date { animation-delay:.26s; }
+    .hero-photo { animation:hero-photo-in 1.05s cubic-bezier(.2,.7,.2,1) .08s both; }
     .reveal { opacity:0; transform:translateY(28px); transition:opacity .8s ease,transform .8s cubic-bezier(.2,.65,.2,1); }
     .reveal.is-visible { opacity:1; transform:none; }
+    .program.is-visible .program-mark,.program.is-visible .program-copy { animation:item-rise .75s cubic-bezier(.2,.7,.2,1) both; }
+    .program.is-visible .program-row:nth-child(2) .program-mark,.program.is-visible .program-row:nth-child(2) .program-copy { animation-delay:.14s; }
+    .program.is-visible .program-row:nth-child(3) .program-mark,.program.is-visible .program-row:nth-child(3) .program-copy { animation-delay:.28s; }
+    .cards.is-visible .card { animation:item-rise .8s cubic-bezier(.2,.7,.2,1) both; }
+    .cards.is-visible .card:nth-child(2) { animation-delay:.12s; }
+    .cards.is-visible .card:nth-child(3) { animation-delay:.24s; }
     @keyframes hero-breathe { from { transform:scale(1.025); } to { transform:scale(1.075); } }
     @keyframes scroll-line { 0%,100% { transform:scaleY(.45); transform-origin:top; opacity:.4; } 50% { transform:scaleY(1); transform-origin:top; opacity:1; } }
+    @keyframes hero-copy-in { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:none; } }
+    @keyframes hero-photo-in { from { opacity:0; transform:translateY(18px) scale(.985); } to { opacity:1; transform:none; } }
+    @keyframes item-rise { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:none; } }
+    @keyframes ambient-drift { from { transform:translate3d(0,0,0) scale(1); } to { transform:translate3d(90px,55px,0) scale(1.12); } }
+    @keyframes ambient-drift-reverse { from { transform:translate3d(0,0,0) scale(1.08); } to { transform:translate3d(-80px,-45px,0) scale(.96); } }
+    @keyframes dark-glow { from { transform:translate3d(0,0,0); opacity:.55; } to { transform:translate3d(-120px,90px,0); opacity:1; } }
+    @keyframes photo-light { 0%,18% { transform:translateX(-48%); opacity:0; } 42%,58% { opacity:1; } 82%,100% { transform:translateX(48%); opacity:0; } }
+    @keyframes countdown-glow { from { opacity:.45; transform:scale(1); } to { opacity:1; transform:scale(1.16); } }
+    @keyframes monogram-pulse { 0%,100% { transform:scale(1); opacity:.72; } 50% { transform:scale(1.09); opacity:1; } }
+
+    @media (hover:hover) and (pointer:fine) {
+      .card:hover { z-index:2; transform:translateY(-9px); background:rgba(255,255,255,.2); }
+      .card a { transition:letter-spacing .25s ease; }
+      .card a:hover { letter-spacing:.04em; }
+    }
 
     @media (max-width: 767px) {
       .section { padding:82px 24px; }
@@ -122,6 +157,7 @@
       .program { grid-template-columns:50px 1fr; padding-left:20px; }
       .photo-story { min-height:600px; padding:46px 25px; background-position:center 68%; }
       .photo-story::before { background:linear-gradient(0deg,rgba(0,0,0,.72),rgba(0,0,0,.12) 70%); }
+      .photo-story::after { opacity:.55; }
       .photo-story h2 { font-size:80px; }
       .details-heading { display:block; margin-bottom:38px; }
       .details-heading p { margin-top:28px; }
@@ -152,7 +188,7 @@
       .countdown-part { padding-inline:6px; }
       .countdown-part strong { font-size:36px; }
     }
-    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; } .reveal { opacity:1; transform:none; } }
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; } .reveal,.program-mark,.program-copy,.card { opacity:1; transform:none; } }
   </style>
 </head>
 <body>
@@ -200,7 +236,7 @@
 
     <section class="section countdown-section"><div class="reveal"><p class="kicker">09.09.2026</p><h2>До свадьбы<br>осталось</h2><div class="countdown" id="countdown" aria-label="Обратный отсчёт до свадьбы"></div></div></section>
 
-    <section class="section"><div class="rsvp reveal" id="rsvp"><p class="kicker">Будем рады вашему ответу</p><h2>Просьба</h2><p class="rsvp-intro">Пожалуйста, подтвердите своё присутствие, чтобы мы могли всё подготовить.</p>
+    <section class="section rsvp-section"><div class="rsvp reveal" id="rsvp"><p class="kicker">Будем рады вашему ответу</p><h2>Просьба</h2><p class="rsvp-intro">Пожалуйста, подтвердите своё присутствие, чтобы мы могли всё подготовить.</p>
       <form id="form" action="https://formsubmit.co/arinarinaarkatova@gmail.com" method="POST">
         <input type="hidden" name="_subject" value="RSVP — свадьба Арины и Максима">
         <input type="hidden" name="_template" value="table">
