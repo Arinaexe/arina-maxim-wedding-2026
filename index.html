@@ -10,18 +10,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root { --ink:#1a1b19; --paper:#f8f7f5; --warm:#d3c5b4; --sand:#8b8075; --line:rgba(26,27,25,.18); }
+    :root { --ink:#1a1b19; --paper:#e5e4e1; --warm:#d3c5b4; --sand:#8b8075; --line:rgba(26,27,25,.18); }
     * { box-sizing:border-box; }
     html { scroll-behavior:smooth; }
-    body { margin:0; overflow-x:hidden; color:var(--ink); background:var(--paper); font:15px/1.6 Manrope,Arial,sans-serif; }
+    body { margin:0; overflow-x:hidden; color:var(--ink); background:radial-gradient(circle at 14% 7%,rgba(255,255,255,.8),transparent 33%),radial-gradient(circle at 87% 19%,rgba(194,190,184,.5),transparent 38%),linear-gradient(135deg,#e9e8e6 0%,#dad9d6 50%,#e7e5e1 100%); background-size:130% 130%,140% 140%,100% 100%; animation:paper-drift 18s ease-in-out infinite alternate; font:15px/1.6 Manrope,Arial,sans-serif; }
     a { color:inherit; }
     img { display:block; max-width:100%; }
     .serif, h1, h2, h3 { font-family:"Cormorant Garamond", Georgia, serif; font-weight:400; }
     .kicker { margin:0 0 18px; font-size:10px; letter-spacing:.22em; text-transform:uppercase; }
     .section { position:relative; padding:clamp(84px,10vw,150px) max(24px, calc((100vw - 1180px)/2)); }
 
-    .hero { position:relative; min-height:100svh; display:grid; grid-template-columns:minmax(330px,.86fr) minmax(440px,1.14fr); align-items:center; gap:clamp(50px,9vw,155px); padding:clamp(40px,6vw,90px) max(28px, calc((100vw - 1260px)/2)); overflow:hidden; background:linear-gradient(#f2f1ef,#fff 58%,#f8f7f5); }
-    .hero::before { display:none; }
+    .hero { position:relative; min-height:100svh; display:grid; grid-template-columns:minmax(330px,.86fr) minmax(440px,1.14fr); align-items:center; gap:clamp(50px,9vw,155px); padding:clamp(40px,6vw,90px) max(28px, calc((100vw - 1260px)/2)); overflow:hidden; background:linear-gradient(135deg,#e6e5e2,#cfceca 48%,#e9e8e5); }
+    .hero::before { position:absolute; width:52vw; height:52vw; top:-29vw; left:-17vw; border-radius:50%; content:""; background:radial-gradient(circle,rgba(255,255,255,.75),rgba(255,255,255,0) 68%); filter:blur(8px); animation:glow-float 15s ease-in-out infinite alternate; pointer-events:none; }
     .hero-copy { z-index:1; padding-left:clamp(0px,3vw,36px); }
     .hero-title { margin:0; max-width:500px; font-size:clamp(77px,8.8vw,132px); line-height:.72; letter-spacing:-.07em; }
     .hero-title i { display:block; margin:17px 0 0 1.38em; font-size:.5em; font-weight:400; }
@@ -59,10 +59,10 @@
     .photo-story-content { display:flex; position:relative; flex-direction:column; justify-content:flex-end; max-width:none; padding:clamp(52px,7vw,100px) clamp(36px,6vw,110px); }
     .photo-story h2 { margin:0; font-size:clamp(68px,8vw,120px); line-height:.73; letter-spacing:-.065em; }
     .photo-story p:last-child { max-width:290px; margin:27px 0 0; font:italic 27px/1.15 "Cormorant Garamond", Georgia, serif; }
-    .story-media { display:grid; position:relative; place-items:center; min-width:0; padding:28px; background:#1d1e1b; }
+    .story-media { display:grid; position:relative; place-items:center; min-width:0; padding:28px; background:#10110f; }
     .story-media img { width:100%; height:100%; max-height:644px; object-fit:contain; object-position:center; filter:grayscale(.12) sepia(.18) saturate(.76) contrast(1.03) brightness(.94); }
 
-    .details { background:#ebe8e2; }
+    .details { overflow:hidden; background:linear-gradient(120deg,rgba(235,234,231,.88),rgba(205,203,198,.74),rgba(233,231,227,.88)); background-size:180% 180%; animation:surface-shift 16s ease-in-out infinite alternate; }
     .details-heading { display:flex; align-items:end; justify-content:space-between; gap:30px; margin-bottom:54px; }
     .details h2 { margin:0; font-size:clamp(72px,8.6vw,118px); line-height:.72; letter-spacing:-.065em; text-transform:uppercase; }
     .details-heading p { max-width:220px; margin:0 0 3px; color:#665f58; }
@@ -75,7 +75,7 @@
     .card p:not(.card-number) { max-width:260px; margin:0; color:#6a645e; font-size:13px; }
     .card a { display:inline-block; margin-top:18px; font-size:12px; text-underline-offset:4px; }
 
-    .countdown-section { min-height:610px; display:grid; grid-template-columns:1fr minmax(400px,.9fr); place-items:stretch; padding:0; color:#f6f2ec; text-align:left; background:#1d1e1b; }
+    .countdown-section { min-height:610px; display:grid; grid-template-columns:1fr minmax(400px,.9fr); place-items:stretch; padding:0; color:#f6f2ec; text-align:left; background:#242521; }
     .countdown-copy { display:flex; flex-direction:column; align-items:flex-start; justify-content:center; padding:clamp(48px,7vw,105px); }
     .countdown-section h2 { margin:0; font-size:clamp(70px,8vw,118px); line-height:.75; letter-spacing:-.06em; }
     .countdown { display:flex; justify-content:flex-start; margin-top:53px; }
@@ -83,7 +83,7 @@
     .countdown-part:not(:last-child)::after { position:absolute; top:0; right:-3px; content:":"; font:400 43px/1 "Cormorant Garamond", Georgia, serif; }
     .countdown-part strong { display:block; font:400 58px/.8 "Cormorant Garamond", Georgia, serif; }
     .countdown-part span { display:block; margin-top:13px; font-size:9px; letter-spacing:.12em; text-transform:uppercase; }
-    .countdown-media { display:grid; position:relative; place-items:center; min-width:0; padding:27px; background:#1d1e1b; }
+    .countdown-media { display:grid; position:relative; place-items:center; min-width:0; padding:27px; background:#11120f; }
     .countdown-media img { width:100%; height:100%; max-height:556px; object-fit:contain; object-position:center; filter:grayscale(.12) sepia(.18) saturate(.74) contrast(1.03) brightness(.91); }
 
     .rsvp { max-width:860px; margin:auto; text-align:center; }
@@ -99,16 +99,19 @@
     button { justify-self:start; padding:17px 28px; border:1px solid var(--ink); border-radius:0; color:#fff; background:var(--ink); cursor:pointer; font:600 10px Manrope,Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase; transition:transform .25s ease, background .25s ease, color .25s ease; }
     button:hover { color:var(--ink); background:transparent; transform:translateY(-2px); }
     .success { margin:0; color:#647660; font-size:13px; }
-    footer { padding:25px; color:#77716a; text-align:center; font-size:10px; letter-spacing:.16em; text-transform:uppercase; }
+    footer { padding:25px; color:#77716a; text-align:center; font-size:10px; letter-spacing:.16em; text-transform:uppercase; background:rgba(224,222,218,.7); }
 
     .reveal { opacity:0; transform:translateY(28px); transition:opacity .8s ease,transform .8s cubic-bezier(.2,.65,.2,1); }
     .reveal.is-visible { opacity:1; transform:none; }
     @keyframes hero-breathe { from { transform:scale(1.025); } to { transform:scale(1.075); } }
     @keyframes scroll-line { 0%,100% { transform:scaleY(.45); transform-origin:top; opacity:.4; } 50% { transform:scaleY(1); transform-origin:top; opacity:1; } }
+    @keyframes paper-drift { from { background-position:0% 0%,100% 0%,0 0; } to { background-position:22% 18%,78% 24%,0 0; } }
+    @keyframes surface-shift { from { background-position:0% 45%; } to { background-position:100% 55%; } }
+    @keyframes glow-float { from { transform:translate3d(0,0,0) scale(1); } to { transform:translate3d(17vw,8vw,0) scale(1.12); } }
 
     @media (max-width: 767px) {
       .section { padding:62px 24px; }
-      .hero { display:flex; flex-direction:column; min-height:auto; gap:0; padding:0 0 38px; text-align:center; background:linear-gradient(#f2f1ef,#fff 58%,#f8f7f5); }
+      .hero { display:flex; flex-direction:column; min-height:auto; gap:0; padding:0 0 38px; text-align:center; background:linear-gradient(150deg,#e9e8e5,#d3d2cf 54%,#e8e7e4); }
       .hero-copy { display:contents; padding:0; }
       .hero-photo { order:0; width:100%; height:auto; min-height:0; aspect-ratio:1 / 1.08; }
       .hero-photo img { object-position:52% 40%; }
