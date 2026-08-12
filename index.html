@@ -189,12 +189,17 @@
 
     <section class="section countdown-section"><div class="reveal"><p class="kicker">09.09.2026</p><h2>До свадьбы<br>осталось</h2><div class="countdown" id="countdown" aria-label="Обратный отсчёт до свадьбы"></div></div></section>
 
-    <section class="section"><div class="rsvp reveal"><p class="kicker">Будем рады вашему ответу</p><h2>Просьба</h2><p class="rsvp-intro">Пожалуйста, подтвердите своё присутствие, чтобы мы могли всё подготовить.</p>
-      <form id="form">
-        <label>Ваше имя и фамилия<input required name="name" placeholder="Например, Сергей Иванов"></label>
+    <section class="section"><div class="rsvp reveal" id="rsvp"><p class="kicker">Будем рады вашему ответу</p><h2>Просьба</h2><p class="rsvp-intro">Пожалуйста, подтвердите своё присутствие, чтобы мы могли всё подготовить.</p>
+      <form id="form" action="https://formsubmit.co/arinarinaarkatova@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="RSVP — свадьба Арины и Максима">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://arinaexe.github.io/arina-maxim-wedding-2026/?thanks=1#rsvp">
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+        <label>Ваше имя и фамилия<input required name="Гость" placeholder="Например, Сергей Иванов"></label>
         <fieldset><legend>Планируете ли вы присутствовать?</legend><label class="choice"><input type="radio" name="attendance" value="Да, с удовольствием!" required>Да, с удовольствием!</label><label class="choice"><input type="radio" name="attendance" value="К сожалению, не смогу">К сожалению, не смогу</label></fieldset>
-        <label>Комментарий или пожелание<textarea name="comment" rows="3" placeholder="По желанию"></textarea></label>
-        <button type="submit">Отправить ответ</button><p id="success" class="success" hidden>Почтовое сообщение создано — отправьте его, и мы получим ваш ответ.</p>
+        <label>Комментарий или пожелание<textarea name="Пожелание" rows="3" placeholder="По желанию"></textarea></label>
+        <button type="submit">Отправить ответ</button><p id="success" class="success" hidden>Спасибо! Ваш ответ уже отправлен Арине и Максиму.</p>
       </form>
     </div></section>
   </main>
@@ -210,13 +215,7 @@
     updateCountdown(); setInterval(updateCountdown, 1000);
     const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } }), { threshold:.15 });
     document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
-    document.querySelector('#form').addEventListener('submit', event => {
-      event.preventDefault(); const form = new FormData(event.currentTarget);
-      const subject = encodeURIComponent(`RSVP: ${form.get('name')}`);
-      const body = encodeURIComponent(`Новый ответ на свадьбу Арины и Максима\n\nГость: ${form.get('name')}\nОтвет: ${form.get('attendance')}\nКомментарий: ${form.get('comment') || '—'}`);
-      window.location.href = `mailto:arinarinaarkatova@gmail.com?subject=${subject}&body=${body}`;
-      document.querySelector('#success').hidden = false;
-    });
+    if (new URLSearchParams(window.location.search).get('thanks') === '1') document.querySelector('#success').hidden = false;
   </script>
 </body>
 </html>
