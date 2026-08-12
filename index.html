@@ -28,14 +28,14 @@
     .hero-date { display:flex; align-items:center; gap:13px; margin-top:45px; font-size:10px; letter-spacing:.2em; text-transform:uppercase; }
     .hero-date::before { width:36px; height:1px; content:""; background:var(--ink); }
     .hero-photo { position:relative; overflow:hidden; height:min(78vh,735px); min-height:540px; }
-    .hero-photo::after { position:absolute; inset:0; content:""; background:linear-gradient(135deg,rgba(0,0,0,.13),transparent 46%,rgba(255,255,255,.14)); pointer-events:none; }
+    .hero-photo::after { position:absolute; inset:0; content:""; background:linear-gradient(125deg,rgba(255,255,255,.16),rgba(255,255,255,.035) 36%,transparent 58%),radial-gradient(circle at 78% 18%,rgba(255,255,255,.13),transparent 34%),linear-gradient(135deg,rgba(0,0,0,.11),transparent 46%); pointer-events:none; }
     .hero-photo img { width:100%; height:100%; object-fit:cover; object-position:53% 42%; filter:grayscale(100%) contrast(1.05); transform:scale(1.025); animation:hero-breathe 16s ease-in-out infinite alternate; }
     .scroll { position:absolute; bottom:28px; left:50%; color:#66615c; transform:translateX(-50%); text-decoration:none; font-size:10px; letter-spacing:.16em; text-transform:uppercase; white-space:nowrap; }
     .scroll::after { display:block; width:1px; height:32px; margin:10px auto 0; content:""; background:#77716b; animation:scroll-line 1.6s ease-in-out infinite; }
 
-    .invitation { display:grid; grid-template-columns:1fr minmax(280px,550px) 1fr; overflow:hidden; isolation:isolate; text-align:center; }
-    .invitation::before { position:absolute; z-index:-1; top:-190px; left:-210px; width:520px; height:520px; border-radius:50%; content:""; background:radial-gradient(circle,rgba(185,159,131,.18),rgba(185,159,131,0) 68%); animation:ambient-drift 17s ease-in-out infinite alternate; pointer-events:none; }
-    .invitation::after { position:absolute; z-index:-1; right:-230px; bottom:-230px; width:560px; height:560px; border-radius:50%; content:""; background:radial-gradient(circle,rgba(174,181,168,.17),rgba(174,181,168,0) 70%); animation:ambient-drift-reverse 21s ease-in-out infinite alternate; pointer-events:none; }
+    .invitation { display:grid; grid-template-columns:1fr minmax(280px,550px) 1fr; overflow:hidden; isolation:isolate; text-align:center; background:var(--paper); }
+    .invitation::before { position:absolute; z-index:0; top:-190px; left:-210px; width:520px; height:520px; border-radius:50%; content:""; background:radial-gradient(circle,rgba(185,159,131,.18),rgba(185,159,131,0) 68%); animation:ambient-drift 17s ease-in-out infinite alternate; pointer-events:none; }
+    .invitation::after { position:absolute; z-index:0; right:-230px; bottom:-230px; width:560px; height:560px; border-radius:50%; content:""; background:radial-gradient(circle,rgba(174,181,168,.17),rgba(174,181,168,0) 70%); animation:ambient-drift-reverse 21s ease-in-out infinite alternate; pointer-events:none; }
     .invitation-inner { position:relative; z-index:1; grid-column:2; }
     .invitation h1 { margin:0 0 42px; font-size:clamp(62px,7.7vw,112px); line-height:.77; letter-spacing:-.06em; text-transform:uppercase; }
     .lead { max-width:470px; margin:0 auto 48px; font:italic clamp(24px,2.8vw,36px)/1.25 "Cormorant Garamond", Georgia, serif; }
@@ -59,13 +59,13 @@
 
     .photo-story { position:relative; min-height:720px; display:grid; align-items:end; padding:clamp(45px,7vw,100px) max(24px, calc((100vw - 1180px)/2)); overflow:hidden; isolation:isolate; color:#fff; background:#151310 url('public/photos/arina-maxim-temple.jpg') center 64% / cover no-repeat; }
     .photo-story::before { position:absolute; inset:0; content:""; background:linear-gradient(90deg,rgba(0,0,0,.68),rgba(0,0,0,.12) 70%),linear-gradient(0deg,rgba(0,0,0,.32),transparent 52%); }
-    .photo-story::after { position:absolute; z-index:1; inset:-15% -45%; content:""; background:linear-gradient(105deg,transparent 38%,rgba(255,246,228,.13) 49%,transparent 60%); transform:translateX(-48%); animation:photo-light 13s ease-in-out infinite; pointer-events:none; }
+    .photo-story::after { position:absolute; z-index:1; inset:0; content:""; background:linear-gradient(122deg,rgba(255,247,232,.11),rgba(255,247,232,.025) 37%,transparent 59%),radial-gradient(circle at 79% 18%,rgba(255,236,205,.12),transparent 34%); pointer-events:none; }
     .photo-story-content { position:relative; z-index:2; max-width:410px; }
     .photo-story h2 { margin:0; font-size:clamp(68px,8vw,120px); line-height:.73; letter-spacing:-.065em; }
     .photo-story p:last-child { max-width:290px; margin:27px 0 0; font:italic 27px/1.15 "Cormorant Garamond", Georgia, serif; }
 
     .details { overflow:hidden; isolation:isolate; background:#ebe8e2; }
-    .details::before { position:absolute; z-index:-1; top:-250px; right:-220px; width:610px; height:610px; border-radius:50%; content:""; background:radial-gradient(circle,rgba(255,255,255,.58),rgba(255,255,255,0) 70%); animation:ambient-drift-reverse 20s ease-in-out infinite alternate; pointer-events:none; }
+    .details::before { position:absolute; z-index:0; top:-250px; right:-220px; width:610px; height:610px; border-radius:50%; content:""; background:radial-gradient(circle,rgba(255,255,255,.58),rgba(255,255,255,0) 70%); animation:ambient-drift-reverse 20s ease-in-out infinite alternate; pointer-events:none; }
     .details-heading { position:relative; z-index:1; display:flex; align-items:end; justify-content:space-between; gap:30px; margin-bottom:54px; }
     .details h2 { margin:0; font-size:clamp(72px,8.6vw,118px); line-height:.72; letter-spacing:-.065em; text-transform:uppercase; }
     .details-heading p { max-width:220px; margin:0 0 3px; color:#665f58; }
@@ -79,7 +79,7 @@
     .card a { display:inline-block; margin-top:18px; font-size:12px; text-underline-offset:4px; }
 
     .countdown-section { min-height:620px; display:grid; position:relative; place-items:center; overflow:hidden; isolation:isolate; color:#fff; text-align:center; background:linear-gradient(rgba(16,17,15,.58),rgba(16,17,15,.7)),url('public/photos/arina-maxim-garden.jpg') center 44% / cover; }
-    .countdown-section::before { position:absolute; z-index:-1; inset:0; content:""; background:radial-gradient(circle at 75% 24%,rgba(255,229,196,.19),transparent 36%); animation:countdown-glow 9s ease-in-out infinite alternate; pointer-events:none; }
+    .countdown-section::before { position:absolute; z-index:0; inset:0; content:""; background:linear-gradient(125deg,rgba(255,247,232,.095),rgba(255,247,232,.018) 38%,transparent 59%),radial-gradient(circle at 76% 20%,rgba(255,229,196,.13),transparent 35%); pointer-events:none; }
     .countdown-section > div { position:relative; z-index:1; }
     .countdown-section h2 { margin:0; font-size:clamp(70px,8vw,118px); line-height:.75; letter-spacing:-.06em; }
     .countdown { display:flex; justify-content:center; margin-top:53px; }
@@ -88,8 +88,9 @@
     .countdown-part strong { display:block; font:400 58px/.8 "Cormorant Garamond", Georgia, serif; }
     .countdown-part span { display:block; margin-top:13px; font-size:9px; letter-spacing:.12em; text-transform:uppercase; }
 
-    .rsvp-section { overflow:hidden; isolation:isolate; }
-    .rsvp-section::before { position:absolute; z-index:-1; left:-220px; bottom:-260px; width:590px; height:590px; border-radius:50%; content:""; background:radial-gradient(circle,rgba(185,159,131,.16),rgba(185,159,131,0) 70%); animation:ambient-drift 19s ease-in-out infinite alternate; pointer-events:none; }
+    .rsvp-section { overflow:hidden; isolation:isolate; background:var(--paper); }
+    .rsvp-section::before { position:absolute; z-index:0; left:-220px; bottom:-260px; width:590px; height:590px; border-radius:50%; content:""; background:radial-gradient(circle,rgba(185,159,131,.16),rgba(185,159,131,0) 70%); animation:ambient-drift 19s ease-in-out infinite alternate; pointer-events:none; }
+    .rsvp-section::after { position:absolute; z-index:0; top:-210px; right:-230px; width:560px; height:560px; border-radius:50%; content:""; background:radial-gradient(circle,rgba(174,181,168,.14),rgba(174,181,168,0) 70%); animation:ambient-drift-reverse 23s ease-in-out infinite alternate; pointer-events:none; }
     .rsvp { position:relative; z-index:1; max-width:860px; margin:auto; text-align:center; }
     .rsvp h2 { margin:0 0 17px; font-size:clamp(71px,8vw,116px); line-height:.75; letter-spacing:-.06em; text-transform:uppercase; }
     .rsvp-intro { max-width:490px; margin:0 auto 54px; color:#645e57; font:italic 27px/1.2 "Cormorant Garamond", Georgia, serif; }
@@ -125,8 +126,6 @@
     @keyframes ambient-drift { from { transform:translate3d(0,0,0) scale(1); } to { transform:translate3d(90px,55px,0) scale(1.12); } }
     @keyframes ambient-drift-reverse { from { transform:translate3d(0,0,0) scale(1.08); } to { transform:translate3d(-80px,-45px,0) scale(.96); } }
     @keyframes dark-glow { from { transform:translate3d(0,0,0); opacity:.55; } to { transform:translate3d(-120px,90px,0); opacity:1; } }
-    @keyframes photo-light { 0%,18% { transform:translateX(-48%); opacity:0; } 42%,58% { opacity:1; } 82%,100% { transform:translateX(48%); opacity:0; } }
-    @keyframes countdown-glow { from { opacity:.45; transform:scale(1); } to { opacity:1; transform:scale(1.16); } }
     @keyframes monogram-pulse { 0%,100% { transform:scale(1); opacity:.72; } 50% { transform:scale(1.09); opacity:1; } }
 
     @media (hover:hover) and (pointer:fine) {
@@ -137,7 +136,7 @@
 
     @media (max-width: 767px) {
       .section { padding:82px 24px; }
-      .hero { display:flex; flex-direction:column; min-height:auto; gap:0; padding:28px 20px 44px; text-align:center; background:linear-gradient(#efede8 0%,#f2f1ef 62%,#f8f7f5 100%); }
+      .hero { display:flex; flex-direction:column; min-height:auto; gap:0; padding:28px 20px 44px; text-align:center; background:#efede8; }
       .hero-copy { display:contents; padding:0; }
       .hero-photo { order:0; width:100%; height:auto; min-height:0; aspect-ratio:4 / 5; }
       .hero-photo img { object-position:52% 41%; }
@@ -157,7 +156,7 @@
       .program { grid-template-columns:50px 1fr; padding-left:20px; }
       .photo-story { min-height:600px; padding:46px 25px; background-position:center 68%; }
       .photo-story::before { background:linear-gradient(0deg,rgba(0,0,0,.72),rgba(0,0,0,.12) 70%); }
-      .photo-story::after { opacity:.55; }
+      .photo-story::after { opacity:.72; }
       .photo-story h2 { font-size:80px; }
       .details-heading { display:block; margin-bottom:38px; }
       .details-heading p { margin-top:28px; }
