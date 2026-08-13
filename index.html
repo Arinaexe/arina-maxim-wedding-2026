@@ -100,8 +100,11 @@
     input, textarea { display:block; width:100%; padding:12px 0; border:0; border-bottom:1px solid #a7a09a; border-radius:0; outline:none; background:transparent; color:var(--ink); font:15px Manrope,Arial,sans-serif; }
     input:focus, textarea:focus { border-color:var(--ink); }
     fieldset { display:grid; gap:10px; margin:0; padding:0; border:0; }
+    [hidden] { display:none !important; }
     .choice { display:flex; align-items:center; font-size:20px; cursor:pointer; }
     .choice input { width:17px; height:17px; margin:0 12px 0 0; accent-color:#1a1b19; }
+    .companion-field { overflow:hidden; max-height:0; margin-top:-28px; opacity:0; transform:translateY(-8px); transition:max-height .4s ease,margin .4s ease,opacity .3s ease,transform .4s ease; }
+    .companion-field.is-visible { max-height:110px; margin-top:0; opacity:1; transform:none; }
     button { justify-self:start; padding:17px 28px; border:1px solid var(--ink); border-radius:0; color:#fff; background:var(--ink); cursor:pointer; font:600 10px Manrope,Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase; transition:transform .25s ease, background .25s ease, color .25s ease; }
     button:hover { color:var(--ink); background:transparent; transform:translateY(-2px); }
     .success { margin:0; color:#647660; font-size:13px; }
@@ -264,6 +267,8 @@
         <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
         <label>Ваше имя и фамилия<input required name="Гость" placeholder="Например, Сергей Иванов"></label>
         <fieldset><legend>Планируете ли вы присутствовать?</legend><label class="choice"><input type="radio" name="attendance" value="Да, с удовольствием!" required>Да, с удовольствием!</label><label class="choice"><input type="radio" name="attendance" value="К сожалению, не смогу">К сожалению, не смогу</label></fieldset>
+        <fieldset id="company-choice" hidden><legend>Вы придёте один или с кем-то?</legend><label class="choice"><input type="radio" name="Компания" value="Приду один" disabled>Приду один</label><label class="choice"><input type="radio" name="Компания" value="Приду с сопровождающим" disabled>Приду с сопровождающим</label></fieldset>
+        <label class="companion-field" id="companion-field">Имя сопровождающего<input id="companion-name" name="Имя сопровождающего" placeholder="Например, Анна Иванова" autocomplete="name" disabled></label>
         <label>Комментарий или пожелание<textarea name="Пожелание" rows="3" placeholder="По желанию"></textarea></label>
         <button type="submit">Отправить ответ</button><p id="success" class="success" hidden>Спасибо! Ваш ответ уже отправлен Арине и Максиму.</p>
       </form>
@@ -281,6 +286,32 @@
     updateCountdown(); setInterval(updateCountdown, 1000);
     const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } }), { threshold:.15 });
     document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
+    const companionField = document.querySelector('#companion-field');
+    const companionName = document.querySelector('#companion-name');
+    const companyChoice = document.querySelector('#company-choice');
+    const companyOptions = [...document.querySelectorAll('input[name="Компания"]')];
+    function updateCompanionField() {
+      const selectedCompany = document.querySelector('input[name="Компания"]:checked');
+      const hasCompanion = selectedCompany?.value === 'Приду с сопровождающим';
+      companionField.classList.toggle('is-visible', hasCompanion);
+      companionName.required = hasCompanion;
+      companionName.disabled = !hasCompanion;
+      if (!hasCompanion) companionName.value = '';
+    }
+    function updateCompanyChoice() {
+      const selectedAttendance = document.querySelector('input[name="attendance"]:checked');
+      const isAttending = selectedAttendance?.value === 'Да, с удовольствием!';
+      companyChoice.hidden = !isAttending;
+      companyOptions.forEach((option, index) => {
+        option.disabled = !isAttending;
+        option.required = isAttending && index === 0;
+        if (!isAttending) option.checked = false;
+      });
+      updateCompanionField();
+    }
+    document.querySelectorAll('input[name="attendance"]').forEach(option => option.addEventListener('change', updateCompanyChoice));
+    companyOptions.forEach(option => option.addEventListener('change', updateCompanionField));
+    updateCompanyChoice();
     const parameters = new URLSearchParams(window.location.search);
     if (window.location.hash === '#rsvp' && parameters.get('thanks') !== '1') history.replaceState(null, '', window.location.pathname + window.location.search);
     if (parameters.get('thanks') === '1') document.querySelector('#success').hidden = false;
