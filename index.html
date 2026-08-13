@@ -267,8 +267,8 @@
         <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
         <label>Ваше имя и фамилия<input required name="Гость" placeholder="Например, Сергей Иванов"></label>
         <fieldset><legend>Планируете ли вы присутствовать?</legend><label class="choice"><input type="radio" name="attendance" value="Да, с удовольствием!" required>Да, с удовольствием!</label><label class="choice"><input type="radio" name="attendance" value="К сожалению, не смогу">К сожалению, не смогу</label></fieldset>
-        <fieldset id="company-choice" hidden><legend>Вы придёте один или с кем-то?</legend><label class="choice"><input type="radio" name="Компания" value="Приду один" disabled>Приду один</label><label class="choice"><input type="radio" name="Компания" value="Приду с сопровождающим" disabled>Приду с сопровождающим</label></fieldset>
-        <label class="companion-field" id="companion-field">Имя сопровождающего<input id="companion-name" name="Имя сопровождающего" placeholder="Например, Анна Иванова" autocomplete="name" disabled></label>
+        <fieldset id="company-choice" hidden><legend>Вы придёте один/одна или вдвоём?</legend><label class="choice"><input type="radio" name="Компания" value="Приду один/одна" disabled>Приду один/одна</label><label class="choice"><input type="radio" name="Компания" value="Приду вдвоём" disabled>Приду вдвоём</label></fieldset>
+        <label class="companion-field" id="companion-field">Имя второго гостя<input id="companion-name" name="Имя второго гостя" placeholder="Например, Анна Иванова" autocomplete="name" disabled></label>
         <label>Комментарий или пожелание<textarea name="Пожелание" rows="3" placeholder="По желанию"></textarea></label>
         <button type="submit">Отправить ответ</button><p id="success" class="success" hidden>Спасибо! Ваш ответ уже отправлен Арине и Максиму.</p>
       </form>
@@ -292,7 +292,7 @@
     const companyOptions = [...document.querySelectorAll('input[name="Компания"]')];
     function updateCompanionField() {
       const selectedCompany = document.querySelector('input[name="Компания"]:checked');
-      const hasCompanion = selectedCompany?.value === 'Приду с сопровождающим';
+      const hasCompanion = selectedCompany?.value === 'Приду вдвоём';
       companionField.classList.toggle('is-visible', hasCompanion);
       companionName.required = hasCompanion;
       companionName.disabled = !hasCompanion;
