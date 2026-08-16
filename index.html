@@ -78,6 +78,9 @@
     .card h3 { margin:0 0 14px; font-size:43px; line-height:.9; }
     .card p:not(.card-number) { max-width:260px; margin:0; color:#6a645e; font-size:13px; }
     .card a { display:inline-block; margin-top:18px; font-size:12px; text-underline-offset:4px; }
+    .dress-palette { display:flex; flex-wrap:wrap; gap:10px; margin-top:23px; }
+    .color-swatch { display:block; width:36px; height:36px; border:1px solid rgba(255,255,255,.55); border-radius:50%; background:var(--swatch); box-shadow:0 0 0 1px rgba(26,27,25,.12),0 5px 14px rgba(26,27,25,.12); transition:transform .3s ease,box-shadow .3s ease; }
+    .card .palette-note { margin-top:12px; color:#817971; font-size:9px; line-height:1.6; letter-spacing:.08em; text-transform:uppercase; }
     .pool-card { position:relative; overflow:hidden; isolation:isolate; touch-action:manipulation; }
     .pool-card > * { position:relative; z-index:1; }
     .pool-card::before { position:absolute; z-index:0; inset:-30%; content:""; opacity:0; background:repeating-radial-gradient(ellipse at 48% 72%,transparent 0 27px,rgba(111,151,154,.16) 29px 31px,transparent 33px 48px); transform:scale(.86); transition:opacity .55s ease,transform 1.5s ease; pointer-events:none; }
@@ -172,6 +175,7 @@
       .card:hover { z-index:2; transform:translateY(-9px); background:rgba(255,255,255,.2); }
       .card a { transition:letter-spacing .25s ease; }
       .card a:hover { letter-spacing:.04em; }
+      .color-swatch:hover { transform:translateY(-4px) scale(1.06); box-shadow:0 0 0 1px rgba(26,27,25,.12),0 9px 18px rgba(26,27,25,.18); }
       .interactive-photo:hover::before { transform:scale(1.045); filter:saturate(1.08) contrast(1.035); }
     }
 
@@ -283,7 +287,7 @@
       <div class="details-heading reveal"><h2>Детали</h2><p>Чтобы этот день прошёл легко и красиво для каждого из нас.</p></div>
       <div class="cards reveal">
         <article class="card"><p class="card-number">01</p><h3>Адреса</h3><p><strong>Церемония:</strong> г. Курск, ул. Радищева, 66А.<br><br><strong>Банкет:</strong> г. Курск, СНТ «Взлёт», 34.</p><a href="https://yandex.ru/maps/?text=Курск%20Радищева%2066А" target="_blank" rel="noopener">Карта церемонии ↗</a><br><a href="https://yandex.ru/maps/?text=Курск%20СНТ%20Взлёт%2034" target="_blank" rel="noopener">Карта банкета ↗</a></article>
-        <article class="card"><p class="card-number">02</p><h3>Пожелания</h3><p>Ваше присутствие — главный подарок. В одежде предпочтительны коричневые и бордовые оттенки; если не получится — выбирайте тёмную гамму.</p></article>
+        <article class="card"><p class="card-number">02</p><h3>Пожелания</h3><p>Ваше присутствие — главный подарок. В одежде предпочтительны коричневые и бордовые оттенки; если не получится — выбирайте тёмную гамму.</p><div class="dress-palette" aria-label="Рекомендуемая цветовая палитра"><span class="color-swatch" style="--swatch:#52382b" role="img" aria-label="Шоколадный" title="Шоколадный"></span><span class="color-swatch" style="--swatch:#80604d" role="img" aria-label="Кофейный" title="Кофейный"></span><span class="color-swatch" style="--swatch:#7b293f" role="img" aria-label="Бордовый" title="Бордовый"></span><span class="color-swatch" style="--swatch:#4b202c" role="img" aria-label="Винный" title="Винный"></span><span class="color-swatch" style="--swatch:#30302f" role="img" aria-label="Графитовый" title="Графитовый"></span></div><p class="palette-note">Шоколадный · кофейный · бордовый · винный · графитовый</p></article>
         <article class="card pool-card"><p class="card-number">03</p><h3>Бассейн</h3><p>На площадке будет бассейн. Если захотите искупаться, возьмите с собой купальные принадлежности, полотенце и сменные вещи.</p><span class="pool-hint">Коснитесь воды</span></article>
       </div>
     </section>
