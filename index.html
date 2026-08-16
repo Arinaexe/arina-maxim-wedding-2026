@@ -439,8 +439,10 @@
     ];
     const predictionButton = document.querySelector('#prediction-button');
     const predictionText = document.querySelector('#prediction-text');
+    const specialPrediction = 'Судьба шепчет: следующим или следующей у свадебного алтаря можете оказаться именно вы ♡';
     let previousPrediction = -1;
     let availablePredictions = [];
+    let predictionClicks = 0;
     function takePrediction() {
       if (!availablePredictions.length) {
         availablePredictions = predictions.map((_, index) => index);
@@ -455,12 +457,19 @@
       return availablePredictions.pop();
     }
     predictionButton.addEventListener('click', () => {
-      const nextPrediction = takePrediction();
-      previousPrediction = nextPrediction;
+      predictionClicks += 1;
+      let prediction;
+      if (predictionClicks === 2) {
+        prediction = specialPrediction;
+      } else {
+        const nextPrediction = takePrediction();
+        previousPrediction = nextPrediction;
+        prediction = predictions[nextPrediction];
+      }
       predictionButton.disabled = true;
       predictionText.classList.add('is-changing');
       window.setTimeout(() => {
-        predictionText.textContent = predictions[nextPrediction];
+        predictionText.textContent = prediction;
         predictionText.classList.remove('is-changing');
         predictionButton.textContent = 'Ещё одно предсказание';
         predictionButton.disabled = false;
