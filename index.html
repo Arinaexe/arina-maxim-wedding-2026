@@ -6,7 +6,6 @@
   <meta name="theme-color" content="#171817">
   <title>Арина & Максим — 09.09.2026</title>
   <meta name="description" content="Приглашение на свадьбу Арины и Максима — 9 сентября 2026">
-  <script>if (new URLSearchParams(window.location.search).get('thanks') === '1') document.documentElement.classList.add('skip-cover');</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
@@ -20,33 +19,6 @@
     .serif, h1, h2, h3 { font-family:"Cormorant Garamond", Georgia, serif; font-weight:400; }
     .kicker { margin:0 0 18px; font-size:10px; letter-spacing:.22em; text-transform:uppercase; }
     .section { position:relative; padding:clamp(84px,10vw,150px) max(24px, calc((100vw - 1180px)/2)); }
-
-    body.invitation-locked { overflow:hidden; }
-    .invitation-cover { position:fixed; z-index:200; inset:0; display:grid; place-items:center; overflow:hidden; padding:clamp(18px,4vw,42px); color:#252522; background:radial-gradient(circle at 22% 17%,rgba(123,41,63,.19),transparent 34%),radial-gradient(circle at 82% 80%,rgba(178,139,94,.15),transparent 35%),#181916; transition:opacity .48s ease 1.02s,visibility .48s ease 1.02s; }
-    .invitation-cover::before { position:absolute; inset:0; content:""; opacity:.25; background-image:linear-gradient(115deg,transparent 46%,rgba(255,255,255,.07) 50%,transparent 54%); background-size:220% 100%; animation:cover-glimmer 6.5s ease-in-out infinite; pointer-events:none; }
-    .cover-stage { position:relative; width:min(86vw,470px); height:min(78svh,700px); min-height:560px; overflow:visible; perspective:1500px; cursor:pointer; outline:none; filter:drop-shadow(0 28px 48px rgba(0,0,0,.38)); transform-origin:50% 18%; }
-    .cover-stage:focus-visible { outline:1px solid rgba(255,255,255,.72); outline-offset:9px; }
-    .cover-paper { position:absolute; inset:0; overflow:hidden; border:1px solid rgba(255,255,255,.45); border-radius:3px; background:linear-gradient(145deg,#e9e3da,#d8cfc3 67%,#cbbdad); }
-    .cover-paper::before { position:absolute; inset:0; content:""; opacity:.36; background:repeating-linear-gradient(105deg,rgba(255,255,255,.12) 0 1px,transparent 1px 5px); mix-blend-mode:soft-light; }
-    .cover-copy { position:absolute; z-index:2; top:9%; right:10%; left:10%; text-align:center; }
-    .cover-copy .kicker { margin-bottom:24px; color:#655d55; }
-    .cover-copy h2 { margin:0; font-size:clamp(48px,8vw,70px); line-height:.78; letter-spacing:-.055em; }
-    .cover-copy h2 i { display:block; margin:13px 0 7px; color:#7b293f; font-size:.55em; font-weight:400; }
-    .cover-date { margin:25px 0 0; color:#6c645c; font-size:9px; letter-spacing:.18em; text-transform:uppercase; }
-    .cover-pocket { position:absolute; z-index:3; inset:42% 0 0; overflow:hidden; }
-    .cover-pocket::before,.cover-pocket::after { position:absolute; inset:0; content:""; }
-    .cover-pocket::before { background:#cfc2b2; clip-path:polygon(0 0,54% 100%,0 100%); }
-    .cover-pocket::after { background:#c6b7a6; clip-path:polygon(100% 0,46% 100%,100% 100%); }
-    .cover-bottom { position:absolute; z-index:4; inset:52% 0 0; background:linear-gradient(145deg,#d9cdbf,#c7b7a4); clip-path:polygon(0 100%,50% 0,100% 100%); }
-    .cover-flap { position:absolute; z-index:5; top:42%; right:0; left:0; height:38%; background:linear-gradient(165deg,#e2d9ce,#cbbcab); clip-path:polygon(0 0,100% 0,50% 100%); transform-origin:50% 0; backface-visibility:hidden; transition:transform .72s cubic-bezier(.2,.72,.25,1),filter .6s ease; }
-    .cover-seal { position:absolute; z-index:6; top:60%; left:50%; display:grid; width:83px; height:83px; place-items:center; border:2px solid rgba(255,255,255,.28); border-radius:50%; color:#f1dfd2; background:radial-gradient(circle at 34% 28%,#9c4960,#6d2137 68%,#4c1728); box-shadow:0 7px 20px rgba(59,22,31,.35),inset 0 0 0 5px rgba(255,255,255,.08); font:500 20px/1 "Cormorant Garamond",Georgia,serif; letter-spacing:.05em; transform:translate(-50%,-50%); transition:opacity .28s ease,transform .42s cubic-bezier(.2,.72,.25,1); }
-    .cover-seal span { color:#d9b99d; font-size:.72em; }
-    .cover-hint { position:absolute; z-index:7; right:0; bottom:5.7%; left:0; margin:0; color:#554f49; text-align:center; font-size:8px; letter-spacing:.2em; text-transform:uppercase; animation:cover-hint 2.2s ease-in-out infinite; }
-    .invitation-cover.is-opening .cover-flap { transform:rotateX(178deg); filter:brightness(1.08); }
-    .invitation-cover.is-opening .cover-seal { opacity:0; transform:translate(-50%,-50%) scale(.7); }
-    .invitation-cover.is-opening .cover-stage { animation:envelope-away 1.45s cubic-bezier(.42,0,.24,1) forwards; }
-    .invitation-cover.is-opening { opacity:0; visibility:hidden; }
-    .skip-cover .invitation-cover { display:none; }
 
     .hero { min-height:100svh; display:grid; grid-template-columns:minmax(330px,.86fr) minmax(440px,1.14fr); align-items:center; gap:clamp(50px,9vw,155px); padding:clamp(40px,6vw,90px) max(28px, calc((100vw - 1260px)/2)); background:#efede8; }
     .hero-copy { z-index:1; padding-left:clamp(0px,3vw,36px); }
@@ -178,7 +150,6 @@
     .hero-title,.hero-quote,.hero-date { animation:hero-copy-in .9s cubic-bezier(.2,.7,.2,1) both; }
     .hero-quote { animation-delay:.14s; }
     .hero-date { animation-delay:.26s; }
-    .invitation-locked .hero-title,.invitation-locked .hero-quote,.invitation-locked .hero-date { opacity:0; transform:translateY(22px); animation:none; }
     .reveal { opacity:0; transform:translateY(28px); transition:opacity .8s ease,transform .8s cubic-bezier(.2,.65,.2,1); }
     .reveal.is-visible { opacity:1; transform:none; }
     .program.is-visible .program-mark,.program.is-visible .program-copy { animation:item-rise .75s cubic-bezier(.2,.7,.2,1) both; }
@@ -199,9 +170,6 @@
     @keyframes photo-light { 0%,18% { transform:translateX(-48%); opacity:0; } 42%,58% { opacity:1; } 82%,100% { transform:translateX(48%); opacity:0; } }
     @keyframes pool-ripple { 0% { opacity:.8; transform:translate(-50%,-50%) scale(.2); } 100% { opacity:0; transform:translate(-50%,-50%) scale(13); } }
     @keyframes confetti-fall { 0% { opacity:0; transform:translate3d(0,-8vh,0) rotate(0deg); } 10% { opacity:1; } 100% { opacity:0; transform:translate3d(var(--drift),108vh,0) rotate(var(--turn)); } }
-    @keyframes cover-glimmer { 0%,22% { background-position:130% 0; } 65%,100% { background-position:-90% 0; } }
-    @keyframes cover-hint { 0%,100% { opacity:.5; transform:translateY(0); } 50% { opacity:1; transform:translateY(-3px); } }
-    @keyframes envelope-away { 0%,45% { transform:translateY(0) scale(1); } 62% { transform:translateY(3%) scale(.985); } 100% { transform:translateY(-118vh) scale(.88) rotate(-1.5deg); } }
 
     @media (hover:hover) and (pointer:fine) {
       .card:hover { z-index:2; transform:translateY(-9px); background:rgba(255,255,255,.2); }
@@ -213,11 +181,6 @@
 
     @media (max-width: 767px) {
       .section { padding:82px 24px; }
-      .invitation-cover { padding:18px 16px; }
-      .cover-stage { width:min(91vw,430px); height:min(82svh,690px); min-height:520px; }
-      .cover-copy { top:8%; }
-      .cover-copy h2 { font-size:clamp(48px,15vw,66px); }
-      .cover-seal { width:76px; height:76px; }
       .hero { display:flex; flex-direction:column; min-height:auto; gap:0; padding:28px 20px 44px; text-align:center; background:#efede8; }
       .hero-copy { display:contents; padding:0; }
       .hero-photo { order:0; width:100%; height:auto; min-height:0; aspect-ratio:4 / 5; }
@@ -284,25 +247,9 @@
     @media (prefers-reduced-motion: reduce) { *,*::before,*::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; } .reveal,.program-mark,.program-copy,.card { opacity:1; transform:none; } }
   </style>
 </head>
-<body class="invitation-locked">
-  <div class="invitation-cover" id="invitation-cover" role="dialog" aria-modal="true" aria-label="Свадебное приглашение">
-    <div class="cover-stage" id="cover-trigger" role="button" tabindex="0" aria-label="Открыть приглашение">
-      <div class="cover-paper">
-        <div class="cover-copy">
-          <p class="kicker">Приглашение на свадьбу</p>
-          <h2>Арина <i>&amp;</i> Максим</h2>
-          <p class="cover-date">09 сентября 2026</p>
-        </div>
-        <div class="cover-pocket" aria-hidden="true"></div>
-        <div class="cover-bottom" aria-hidden="true"></div>
-        <div class="cover-flap" aria-hidden="true"></div>
-        <div class="cover-seal" aria-hidden="true">А <span>∞</span> М</div>
-        <p class="cover-hint">Нажмите, чтобы открыть</p>
-      </div>
-    </div>
-  </div>
+<body>
   <main>
-    <section class="hero" tabindex="-1">
+    <section class="hero">
       <div class="hero-copy">
         <h1 class="hero-title">Арина <i>&amp;</i> Максим</h1>
         <p class="hero-quote">Наша любовь становится семьёй…</p>
@@ -377,35 +324,6 @@
   </main>
   <footer>Арина ♥ Максим · 09.09.2026</footer>
   <script>
-    const invitationCover = document.querySelector('#invitation-cover');
-    const coverTrigger = document.querySelector('#cover-trigger');
-    const heroSection = document.querySelector('.hero');
-    const skipCover = document.documentElement.classList.contains('skip-cover');
-    function finishInvitationOpening() {
-      document.body.classList.remove('invitation-locked');
-      document.body.classList.add('invitation-opened');
-      invitationCover.setAttribute('aria-hidden', 'true');
-      invitationCover.hidden = true;
-      heroSection.focus({ preventScroll:true });
-    }
-    function openInvitation() {
-      if (invitationCover.classList.contains('is-opening')) return;
-      invitationCover.classList.add('is-opening');
-      const openingTime = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 20 : 1500;
-      window.setTimeout(finishInvitationOpening, openingTime);
-    }
-    if (skipCover) {
-      finishInvitationOpening();
-    } else {
-      coverTrigger.addEventListener('click', openInvitation, { once:true });
-      coverTrigger.addEventListener('keydown', event => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          openInvitation();
-        }
-      });
-    }
-
     const target = new Date('2026-09-09T12:30:00+03:00').getTime();
     const countdown = document.querySelector('#countdown');
     function updateCountdown() {
