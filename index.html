@@ -83,10 +83,12 @@
     .card .palette-note { margin-top:12px; color:#817971; font-size:9px; line-height:1.6; letter-spacing:.08em; text-transform:uppercase; }
     .pool-card { position:relative; overflow:hidden; isolation:isolate; touch-action:manipulation; }
     .pool-card > * { position:relative; z-index:1; }
-    .pool-card::before { position:absolute; z-index:0; inset:-30%; content:""; opacity:0; background:repeating-radial-gradient(ellipse at 48% 72%,transparent 0 27px,rgba(111,151,154,.16) 29px 31px,transparent 33px 48px); transform:scale(.86); transition:opacity .55s ease,transform 1.5s ease; pointer-events:none; }
-    .pool-card:hover::before,.pool-card.is-rippling::before { opacity:1; transform:scale(1.08); }
+    .pool-card::before { position:absolute; z-index:0; inset:-34%; content:""; opacity:.42; background:repeating-radial-gradient(ellipse at 48% 72%,transparent 0 24px,rgba(83,142,148,.2) 26px 29px,transparent 31px 47px),linear-gradient(108deg,transparent 28%,rgba(207,235,232,.22) 47%,rgba(255,255,255,.32) 51%,transparent 69%); background-position:0 0,-130% 0; background-size:auto,55% 100%; background-repeat:repeat,no-repeat; transform:scale(.9) rotate(-1deg); animation:pool-water-drift 5.8s ease-in-out infinite alternate; transition:opacity .45s ease; pointer-events:none; }
+    .pool-card::after { position:absolute; z-index:0; inset:-20% -65%; content:""; opacity:0; background:linear-gradient(105deg,transparent 39%,rgba(216,243,239,.35) 49%,rgba(255,255,255,.48) 52%,transparent 61%); transform:translateX(-42%); animation:pool-shimmer 4.6s ease-in-out infinite; pointer-events:none; }
+    .pool-card:hover::before,.pool-card.is-rippling::before { opacity:.88; animation-duration:3.1s; }
+    .pool-card:hover::after,.pool-card.is-rippling::after { opacity:1; }
     .pool-hint { display:inline-block; margin-top:22px; color:#7c9899; font-size:9px; letter-spacing:.15em; text-transform:uppercase; }
-    .pool-ripple { position:absolute; z-index:0; width:18px; aspect-ratio:1; border:1px solid rgba(86,137,141,.62); border-radius:50%; transform:translate(-50%,-50%) scale(.2); animation:pool-ripple .95s ease-out forwards; pointer-events:none; }
+    .pool-ripple { position:absolute; z-index:1; width:18px; aspect-ratio:1; border:1px solid rgba(70,132,138,.72); border-radius:50%; box-shadow:0 0 0 1px rgba(255,255,255,.18); transform:translate(-50%,-50%) scale(.2); animation:pool-ripple 1.3s cubic-bezier(.12,.58,.28,1) var(--ripple-delay,0s) forwards; pointer-events:none; }
 
     .countdown-section { min-height:620px; display:grid; position:relative; place-items:center; overflow:hidden; isolation:isolate; color:#fff; text-align:center; background:#151613; cursor:zoom-in; }
     .countdown-section::before { position:absolute; z-index:0; inset:-1%; content:""; background:linear-gradient(rgba(16,17,15,.58),rgba(16,17,15,.7)),linear-gradient(125deg,rgba(255,247,232,.095),rgba(255,247,232,.018) 38%,transparent 59%),radial-gradient(circle at 76% 20%,rgba(255,229,196,.13),transparent 35%),url('public/photos/arina-maxim-garden.jpg') center 44% / cover no-repeat; transform:scale(1.001); transition:transform 1.1s cubic-bezier(.2,.7,.2,1),filter 1.1s ease; will-change:transform; pointer-events:none; }
@@ -168,7 +170,9 @@
     @keyframes paper-sheen { 0%,8% { transform:translateX(0); opacity:0; } 28%,66% { opacity:.72; } 92%,100% { transform:translateX(255%); opacity:0; } }
     @keyframes mote-float { 0% { transform:translate3d(0,0,0) scale(.78); opacity:.25; } 48% { opacity:.68; } 100% { transform:translate3d(var(--dx),var(--dy),0) scale(1.18); opacity:.4; } }
     @keyframes photo-light { 0%,18% { transform:translateX(-48%); opacity:0; } 42%,58% { opacity:1; } 82%,100% { transform:translateX(48%); opacity:0; } }
-    @keyframes pool-ripple { 0% { opacity:.8; transform:translate(-50%,-50%) scale(.2); } 100% { opacity:0; transform:translate(-50%,-50%) scale(13); } }
+    @keyframes pool-water-drift { 0% { background-position:0 0,-130% 0; transform:scale(.9) rotate(-1deg); } 100% { background-position:34px 17px,230% 0; transform:scale(1.08) rotate(1deg); } }
+    @keyframes pool-shimmer { 0%,18% { opacity:0; transform:translateX(-42%); } 44%,58% { opacity:.72; } 84%,100% { opacity:0; transform:translateX(42%); } }
+    @keyframes pool-ripple { 0% { opacity:.9; transform:translate(-50%,-50%) scale(.2); } 62% { opacity:.52; } 100% { opacity:0; transform:translate(-50%,-50%) scale(17); } }
     @keyframes confetti-fall { 0% { opacity:0; transform:translate3d(0,-8vh,0) rotate(0deg); } 10% { opacity:1; } 100% { opacity:0; transform:translate3d(var(--drift),108vh,0) rotate(var(--turn)); } }
 
     @media (hover:hover) and (pointer:fine) {
@@ -377,29 +381,32 @@
       poolCard.addEventListener('pointerdown', event => {
         if (reducedMotion) return;
         const bounds = poolCard.getBoundingClientRect();
-        const ripple = document.createElement('span');
-        ripple.className = 'pool-ripple';
-        ripple.style.left = `${event.clientX - bounds.left}px`;
-        ripple.style.top = `${event.clientY - bounds.top}px`;
-        poolCard.appendChild(ripple);
+        for (let index = 0; index < 3; index += 1) {
+          const ripple = document.createElement('span');
+          ripple.className = 'pool-ripple';
+          ripple.style.left = `${event.clientX - bounds.left}px`;
+          ripple.style.top = `${event.clientY - bounds.top}px`;
+          ripple.style.setProperty('--ripple-delay', `${index * .14}s`);
+          poolCard.appendChild(ripple);
+          window.setTimeout(() => ripple.remove(), 1750);
+        }
         poolCard.classList.add('is-rippling');
-        window.setTimeout(() => ripple.remove(), 1000);
-        window.setTimeout(() => poolCard.classList.remove('is-rippling'), 1350);
+        window.setTimeout(() => poolCard.classList.remove('is-rippling'), 1700);
       });
     }
 
     const predictions = [
-      'Сегодня вас ждёт танец, который обязательно попадёт на видео.',
+      'В этот день вас ждёт танец, который обязательно попадёт на видео.',
       'Ваш тост окажется одним из самых душевных за этот вечер.',
       'В этот день вы поймаете идеальный кадр Арины и Максима.',
       'У бассейна вас ждёт неожиданно весёлая история.',
       'Вы первым заметите, кто прослезился на церемонии.',
       'Вам выпадет место рядом с самым весёлым гостем.',
-      'Сегодня прозвучит песня, под которую невозможно не танцевать.',
+      'В этот вечер прозвучит песня, под которую невозможно не танцевать.',
       'Ваше праздничное настроение останется с вами надолго.',
       'Вы обязательно окажетесь на фотографии, которую будут пересматривать годами.',
-      'Сегодняшнее счастье заразительно — вы унесёте немного с собой.',
-      'Ваш бокал сегодня загадочным образом не будет пустым.',
+      'Счастье этого дня заразительно — вы унесёте немного с собой.',
+      'В этот день ваш бокал загадочным образом не будет пустым.',
       'Вас ждёт комплимент от человека, от которого вы его совсем не ожидали.',
       'Ваши ноги скажут «хватит», но диджей поставит ещё один отличный трек.',
       'Вы начнёте этот вечер красиво, а закончите очень весело.',
@@ -407,24 +414,24 @@
       'На общей фотографии вы получитесь ещё лучше, чем ожидали.',
       'Вас ждёт удачное знакомство неподалёку от стола с закусками.',
       'Совсем скоро вы скажете: «А давайте сделаем ещё одну фотографию!»',
-      'Ваше чувство ритма сегодня официально не подлежит критике.',
+      'В этот вечер ваше чувство ритма официально не подлежит критике.',
       'В этот вечер вам простят даже самый смелый танец.',
       'К полуночи вы будете знать слова песни, которую раньше никогда не слышали.',
       'Вас ждёт тост, который начнётся серьёзно, а закончится всеобщим смехом.',
-      'Сегодня вы случайно попадёте в чей-то самый любимый кадр.',
+      'В этот день вы случайно попадёте в чей-то самый любимый кадр.',
       'Один десерт будет настолько хорош, что вы обязательно вернётесь за добавкой.',
-      'Ваш праздничный образ сегодня получит минимум три искренних комплимента.',
+      'Ваш праздничный образ получит минимум три искренних комплимента.',
       'Кто-то рядом скажет: «Вот это любовь!» — и будет совершенно прав.',
       'Вы первым догадаетесь, когда настанет время свадебного торта.',
-      'Сегодня ваш телефон заполнится красивыми фотографиями и очень странными видео.',
+      'После праздника ваш телефон будет полон красивых фотографий и очень странных видео.',
       'В конце вечера вы пообещаете обязательно встретиться всей компанией ещё раз.',
       'Вы будете смеяться над шуткой, которую завтра уже никто не сможет объяснить.',
       'Судьба советует держаться поближе к танцполу и подальше от скуки.',
       'Ваше место за столом выбрано Вселенной исключительно удачно.',
-      'Сегодня вам выпадет почётная роль хранителя хорошего настроения.',
+      'В этот день вам выпадет почётная роль хранителя хорошего настроения.',
       'На несколько минут вы почувствуете себя главным героем музыкального клипа.',
       'Вас ждёт фотография, которую захочется сразу поставить на заставку.',
-      'Сегодня вы узнаете, кто танцует лучше всех. Есть шанс, что это именно вы.',
+      'На празднике вы узнаете, кто танцует лучше всех. Есть шанс, что это именно вы.',
       'Вы окажетесь ближе к свадебному букету, чем собирались.',
       'У вас появится история, которая ещё долго будет начинаться словами: «А помнишь свадьбу?»'
     ];
