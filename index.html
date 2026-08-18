@@ -134,6 +134,7 @@
     [hidden] { display:none !important; }
     .choice { display:flex; align-items:center; font-size:20px; cursor:pointer; }
     .choice input { width:17px; height:17px; margin:0 12px 0 0; accent-color:#1a1b19; }
+    .fieldset-note { margin:-2px 0 3px; color:#766f68; font:11px/1.5 Manrope,Arial,sans-serif; letter-spacing:.04em; }
     .companion-field { overflow:hidden; max-height:0; margin-top:-28px; opacity:0; transform:translateY(-8px); transition:max-height .4s ease,margin .4s ease,opacity .3s ease,transform .4s ease; }
     .companion-field.is-visible { max-height:110px; margin-top:0; opacity:1; transform:none; }
     button { justify-self:start; padding:17px 28px; border:1px solid var(--ink); border-radius:0; color:#fff; background:var(--ink); cursor:pointer; font:600 10px Manrope,Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase; transition:transform .25s ease, background .25s ease, color .25s ease; }
@@ -323,6 +324,7 @@
         <fieldset><legend>Планируете ли вы присутствовать?</legend><label class="choice"><input type="radio" name="attendance" value="Да, с удовольствием!" required>Да, с удовольствием!</label><label class="choice"><input type="radio" name="attendance" value="К сожалению, не смогу">К сожалению, не смогу</label></fieldset>
         <fieldset id="company-choice" hidden><legend>Вы придёте один/одна или вдвоём?</legend><label class="choice"><input type="radio" name="Компания" value="Приду один/одна" disabled>Приду один/одна</label><label class="choice"><input type="radio" name="Компания" value="Приду вдвоём" disabled>Приду вдвоём</label></fieldset>
         <label class="companion-field" id="companion-field">Имя второго гостя<input id="companion-name" name="Имя второго гостя" placeholder="Например, Анна Иванова" autocomplete="name" disabled></label>
+        <fieldset id="drink-choice" hidden><legend>Какие напитки вы предпочитаете?</legend><p class="fieldset-note">Можно выбрать один или несколько вариантов.</p><label class="choice"><input type="checkbox" name="Напитки" value="Вино" disabled>Вино</label><label class="choice"><input type="checkbox" name="Напитки" value="Шампанское" disabled>Шампанское</label><label class="choice"><input type="checkbox" name="Напитки" value="Самогонка" disabled>Самогонка</label><label class="choice"><input type="checkbox" name="Напитки" value="Водка" disabled>Водка</label><label class="choice"><input type="checkbox" name="Напитки" value="Безалкогольные напитки" disabled>Безалкогольные напитки</label></fieldset>
         <label>Комментарий или пожелание<textarea name="Пожелание" rows="3" placeholder="По желанию"></textarea></label>
         <button type="submit">Отправить ответ</button><p id="success" class="success" hidden>Спасибо! Ваш ответ уже отправлен Арине и Максиму.</p>
       </form>
@@ -344,6 +346,13 @@
     const companionName = document.querySelector('#companion-name');
     const companyChoice = document.querySelector('#company-choice');
     const companyOptions = [...document.querySelectorAll('input[name="Компания"]')];
+    const drinkChoice = document.querySelector('#drink-choice');
+    const drinkOptions = [...document.querySelectorAll('input[name="Напитки"]')];
+    function updateDrinkRequirement() {
+      const hasSelection = drinkOptions.some(option => option.checked);
+      drinkOptions[0].required = !drinkChoice.hidden && !hasSelection;
+      drinkOptions[0].setCustomValidity(!drinkChoice.hidden && !hasSelection ? 'Выберите хотя бы один вариант напитка.' : '');
+    }
     function updateCompanionField() {
       const selectedCompany = document.querySelector('input[name="Компания"]:checked');
       const hasCompanion = selectedCompany?.value === 'Приду вдвоём';
@@ -361,10 +370,17 @@
         option.required = isAttending && index === 0;
         if (!isAttending) option.checked = false;
       });
+      drinkChoice.hidden = !isAttending;
+      drinkOptions.forEach(option => {
+        option.disabled = !isAttending;
+        if (!isAttending) option.checked = false;
+      });
+      updateDrinkRequirement();
       updateCompanionField();
     }
     document.querySelectorAll('input[name="attendance"]').forEach(option => option.addEventListener('change', updateCompanyChoice));
     companyOptions.forEach(option => option.addEventListener('change', updateCompanionField));
+    drinkOptions.forEach(option => option.addEventListener('change', updateDrinkRequirement));
     updateCompanyChoice();
 
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
