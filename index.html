@@ -139,7 +139,9 @@
     .companion-field.is-visible { max-height:110px; margin-top:0; opacity:1; transform:none; }
     button { justify-self:start; padding:17px 28px; border:1px solid var(--ink); border-radius:0; color:#fff; background:var(--ink); cursor:pointer; font:600 10px Manrope,Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase; transition:transform .25s ease, background .25s ease, color .25s ease; }
     button:hover { color:var(--ink); background:transparent; transform:translateY(-2px); }
+    button:disabled { cursor:wait; opacity:.62; transform:none; }
     .success { margin:0; color:#647660; font-size:13px; }
+    .form-error { margin:0; color:#8a4d46; font-size:13px; }
     footer { padding:25px; color:#77716a; text-align:center; font-size:10px; letter-spacing:.16em; text-transform:uppercase; }
 
     .light-motes { position:absolute; z-index:0; inset:0; overflow:hidden; pointer-events:none; }
@@ -317,8 +319,8 @@
       <form id="form" action="https://formsubmit.co/arinarinaarkatova@gmail.com" method="POST">
         <input type="hidden" name="_subject" value="RSVP — свадьба Арины и Максима">
         <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_next" value="https://arinaexe.github.io/arina-maxim-wedding-2026/?thanks=1">
+        <input type="hidden" name="_url" value="https://arinaexe.github.io/arina-maxim-wedding-2026/">
         <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
         <label>Ваше имя и фамилия<input required name="Гость" placeholder="Например, Сергей Иванов"></label>
         <fieldset><legend>Планируете ли вы присутствовать?</legend><label class="choice"><input type="radio" name="attendance" value="Да, с удовольствием!" required>Да, с удовольствием!</label><label class="choice"><input type="radio" name="attendance" value="К сожалению, не смогу">К сожалению, не смогу</label></fieldset>
@@ -326,7 +328,7 @@
         <label class="companion-field" id="companion-field">Имя второго гостя<input id="companion-name" name="Имя второго гостя" placeholder="Например, Анна Иванова" autocomplete="name" disabled></label>
         <fieldset id="drink-choice" hidden><legend>Какие напитки вы предпочитаете?</legend><p class="fieldset-note">Можно выбрать один или несколько вариантов.</p><label class="choice"><input type="checkbox" name="Напитки" value="Вино" disabled>Вино</label><label class="choice"><input type="checkbox" name="Напитки" value="Шампанское" disabled>Шампанское</label><label class="choice"><input type="checkbox" name="Напитки" value="Самогонка" disabled>Самогонка</label><label class="choice"><input type="checkbox" name="Напитки" value="Водка" disabled>Водка</label><label class="choice"><input type="checkbox" name="Напитки" value="Безалкогольные напитки" disabled>Безалкогольные напитки</label></fieldset>
         <label>Комментарий или пожелание<textarea name="Пожелание" rows="3" placeholder="По желанию"></textarea></label>
-        <button type="submit">Отправить ответ</button><p id="success" class="success" hidden>Спасибо! Ваш ответ уже отправлен Арине и Максиму.</p>
+        <button id="submit-button" type="submit">Отправить ответ</button><p id="success" class="success" hidden>Спасибо! Ваш ответ уже отправлен Арине и Максиму.</p><p id="form-error" class="form-error" hidden>Не удалось отправить ответ. Пожалуйста, попробуйте ещё раз.</p>
       </form>
     </div></section>
   </main>
@@ -514,10 +516,61 @@
       window.setTimeout(() => layer.remove(), 4500);
     }
 
+    const rsvpForm = document.querySelector('#form');
+    const submitButton = document.querySelector('#submit-button');
+    const successMessage = document.querySelector('#success');
+    const formError = document.querySelector('#form-error');
+    const rsvpEndpoint = 'https://arina-maxim-wedding-2026.rinaarkatova.chatgpt.site/api/rsvp';
+    rsvpForm.addEventListener('submit', async event => {
+      if (!rsvpForm.checkValidity()) return;
+      event.preventDefault();
+      submitButton.disabled = true;
+      submitButton.textContent = 'Отправляем…';
+      successMessage.hidden = true;
+      formError.hidden = true;
+      const formData = new FormData(rsvpForm);
+      const submissionId = typeof crypto.randomUUID === 'function'
+        ? crypto.randomUUID()
+        : `rsvp-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 20000);
+      try {
+        const response = await fetch(rsvpEndpoint, {
+          method:'POST',
+          headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
+          body:JSON.stringify({
+            name:formData.get('Гость'),
+            attendance:formData.get('attendance'),
+            company:formData.get('Компания'),
+            companion:formData.get('Имя второго гостя'),
+            drinks:formData.getAll('Напитки'),
+            comment:formData.get('Пожелание'),
+            website:formData.get('_honey'),
+            submissionId,
+          }),
+          signal:controller.signal,
+          keepalive:true,
+        });
+        if (!response.ok) throw new Error('RSVP delivery failed');
+        rsvpForm.reset();
+        updateCompanyChoice();
+        successMessage.hidden = false;
+        submitButton.textContent = 'Ответ отправлен';
+        launchConfetti();
+      } catch {
+        formError.textContent = 'Основная отправка временно недоступна — открываем запасной способ…';
+        formError.hidden = false;
+        submitButton.textContent = 'Переходим к отправке…';
+        window.setTimeout(() => HTMLFormElement.prototype.submit.call(rsvpForm), 650);
+      } finally {
+        window.clearTimeout(timeout);
+      }
+    });
+
     const parameters = new URLSearchParams(window.location.search);
     if (window.location.hash === '#rsvp' && parameters.get('thanks') !== '1') history.replaceState(null, '', window.location.pathname + window.location.search);
     if (parameters.get('thanks') === '1') {
-      document.querySelector('#success').hidden = false;
+      successMessage.hidden = false;
       launchConfetti();
     }
   </script>
